@@ -2,39 +2,24 @@ import React, { useState } from "react";
 import { FlatList, StyleSheet, View } from "react-native";
 
 import Screen from "../components/Screen";
-import ListItem from "../components/ListItem";
-import ListItemSeparator from "../components/ListItemSeparator";
-import ListItemDeleteAction from "../components/ListItemDeleteAction";
+import {
+  ListItem,
+  ListItemDeleteAction,
+  ListItemSeparator,
+} from "../components/lists";
 
 const initialMessages = [
   {
     id: 1,
-    title: "T1",
-    description: "D2",
+    title: "Mosh Hamedani",
+    description: "Hey! Is this item still available?",
     image: require("../assets/mosh.jpg"),
   },
   {
     id: 2,
-    title: "T2",
-    description: "D2",
-    image: require("../assets/mosh.jpg"),
-  },
-  {
-    id: 3,
-    title: "T3",
-    description: "D3",
-    image: require("../assets/mosh.jpg"),
-  },
-  {
-    id: 4,
-    title: "T2",
-    description: "D3",
-    image: require("../assets/mosh.jpg"),
-  },
-  {
-    id: 5,
-    title: "lorem sdkdksklsdlsklskdklskdksldkslkdlksll s kdksldl klkls kldslsk",
-    description: "D2",
+    title: "Mosh Hamedani",
+    description:
+      "I'm interested in this item. When will you be able to post it?",
     image: require("../assets/mosh.jpg"),
   },
 ];
@@ -63,7 +48,7 @@ function MessagesScreen(props) {
               <ListItemDeleteAction onPress={() => handleDelete(item)} />
             )}
           />
-       )}
+        )}
         ItemSeparatorComponent={ListItemSeparator}
         refreshing={refreshing}
         onRefresh={() => {

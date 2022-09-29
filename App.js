@@ -1,22 +1,26 @@
-import Screen from "./app/components/Screen";
-import Icon from "./app/components/Icon";
-import ListItem from "./app/components/ListItem";
-import AccountScreen from "./app/screens/AccountScreen";
-import MessagesScreen from "./app/screens/MessagesScreen";
-import WelcomeScreen from "./app/screens/WelcomeScreen";
-import ListingsScreen from "./app/screens/ListingsScreen";
-import { Switch, Text, TextInput } from "react-native";
-import { useState } from "react";
-import AppTextInput from "./app/components/AppTextInput";
-import AppPicker from "./app/components/AppPicker";
-import LoginScreen from "./app/screens/LoginScreen";
-import ListingEditScreen from "./app/screens/ListingEditScreen";
+import { Text } from "react-native";
+import { useEffect } from "react";
+import * as ImagePicker from "expo-image-picker";
 
+import Screen from "./app/components/Screen";
 
 
 export default function App() {
-  
+
+const requestPermission = async () =>{
+  const {granted} = await ImagePicker.requestMediaLibraryPermissionsAsync();
+  if(!granted) alert("You need to enable permission to access the library.");
+
+};
+
+  useEffect(() => {
+    requestPermission();
+  }, []);
+
+
   return (
-  <ListingEditScreen/>
+  <Screen>
+      <Text>saa</Text>
+  </Screen>
     );
 }
