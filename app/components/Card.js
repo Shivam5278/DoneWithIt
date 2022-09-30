@@ -1,11 +1,13 @@
 import React from "react";
-import { View, StyleSheet, Image } from "react-native";
+import { View, StyleSheet, Image, TouchableWithoutFeedback } from "react-native";
 
 import Text from "./Text";
 import colors from "../config/colors";
 
-function Card({ title, subTitle, image }) {
+function Card({ title, subTitle, image , onPress}) {
   return (
+    <TouchableWithoutFeedback onPress={onPress}>
+
     <View style={styles.card}>
       <Image style={styles.image} source={image} />
       <View style={styles.detailsContainer}>
@@ -17,6 +19,8 @@ function Card({ title, subTitle, image }) {
         </Text>
       </View>
     </View>
+    </TouchableWithoutFeedback>
+
   );
 }
 
