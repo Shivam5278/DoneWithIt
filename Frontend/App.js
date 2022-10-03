@@ -1,58 +1,21 @@
-import { Button, Image, Text } from "react-native";
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { NavigationContainer, useNavigation } from "@react-navigation/native";
+import { useState } from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import {  Text } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { AppLoading } from "expo";
 
-import Screen from "./app/components/Screen";
-import ListingEditScreen from "./app/screens/ListingEditScreen";
-import AuthNavigator from "./app/navigation/AuthNavigaot";
-import navigationTheme from "./app/navigation/navigationTheme";
 import AppNavigator from "./app/navigation/AppNavigator";
+import AuthContext from "./app/auth/context";
+import authStorage from "./app/auth/storage";
+import AuthNavigator from "./app/navigation/AuthNavigaot";
+import OfflineNotice from "./app/components/OfflineNotice";
+import navigationTheme from "./app/navigation/navigationTheme";
+import Screen from "./app/components/Screen";
 
 
-const Link = () => {
-  const navigation = useNavigation();
-  return (
-  <Button 
-  title="Click"
-  onPress={() => navigation.navigate('TweetDetails')}/>
-)}
+//SplashScreen.preventAutoHideAsync();
 
-const Tweets = ({ navigation }) => (
-  <Screen>
-    <Text>Tweets</Text>
-    <Button
-      title="View Tweet"
-      onPress={() => navigation.navigate("TweetDetails", {id :"1" })}/>
-  </Screen>
-)
 
-const TweetDetails = ({ route }) => (
-  <Screen>
-    <Text>TweetDetails {route.params.id}</Text>
-  </Screen>
-)
-
-const Stack = createNativeStackNavigator();
-const FeedNavigator = () => (
-  <Stack.Navigator
-    screenOptions={{
-      headerStyle: { backgroundColor: "dodgerblue"},
-      headerTintColor: "white",
-    }}
-    >
-    <Stack.Screen 
-    name="Tweets" 
-    component={Tweets}
-  
-    />
-    <Stack.Screen 
-    name="TweetDetails" 
-    component={TweetDetails}
-    options={({route}) => ({ title: route.params.id })}/>
-  </Stack.Navigator>
-)
 
 const Account = () => <Screen><Text>Account</Text></Screen>
 
@@ -67,9 +30,23 @@ const TabNavigator = () => (
 export default function App() {
 
 
+  const [user, setUser] = useState();
+  const [isReady, setIsReady] = useState(false);
+
+  const restoreUser = async () => {
+    const user = await authStorage.getUser();
+    if(user) setUser(user);
+  };
+
+//  if(!isReady)
+//  return <AppLoading startAsync={restoreUser} onFinish={() => setIsReady(true)} />
+
   return (
+    <AuthContext.Provider value={{user, setUser}}>
+    <OfflineNotice />
   <NavigationContainer theme={navigationTheme}>
-    <AppNavigator /> 
+   {user ?  <AppNavigator /> : <AuthNavigator /> }
   </NavigationContainer>
+    </AuthContext.Provider>
     );
 }
