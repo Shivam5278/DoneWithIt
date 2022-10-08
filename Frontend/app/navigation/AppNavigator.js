@@ -9,6 +9,8 @@ import ListingEditScreen from "../screens/ListingEditScreen";
 import NewListingButton from "./NewListingButton";
 import routes from "./routes";
 import { useEffect } from "react";
+import MessagesScreen from "../screens/MessagesScreen";
+import AccountScreen from "../screens/AccountScreen";
 
 const Tab = createBottomTabNavigator();
 
@@ -34,11 +36,18 @@ const AppNavigator = () =>{
     return (
 <Tab.Navigator  screenOptions={{headerShown: false}} >
     <Tab.Screen 
-        name="Feed" 
+        name="HOME" 
         component={FeedNavigator}
         options={{
             tabBarIcon: ({color,size}) =>
             <MaterialCommunityIcons name="home" color={color} size={size}/>
+        }} />
+    <Tab.Screen 
+        name="MESSAGES" 
+        component={MessagesScreen} 
+        options={{
+            tabBarIcon: ({color,size}) =>
+            <MaterialCommunityIcons name="message" color={color} size={size}/>
         }} />
     <Tab.Screen 
         name="ListingEdit" 
@@ -47,8 +56,15 @@ const AppNavigator = () =>{
              tabBarButton: () => <NewListingButton onPress={() => navigation.navigate(routes.LISTING_EDIT)}/>
         })} />
     <Tab.Screen 
-        name="Account" 
-        component={AccountNavigator} 
+        name="MY ADS" 
+        component={AccountNavigator } 
+        options={{
+            tabBarIcon: ({color,size}) =>
+            <MaterialCommunityIcons name="heart" color={color} size={size}/>
+        }} />
+    <Tab.Screen 
+        name="ACCOUNT" 
+        component={AccountScreen} 
         options={{
             tabBarIcon: ({color,size}) =>
             <MaterialCommunityIcons name="account" color={color} size={size}/>

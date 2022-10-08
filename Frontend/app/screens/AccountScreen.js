@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, View, Text, FlatList } from "react-native";
+import { StyleSheet, View, FlatList } from "react-native";
 
 
 import { ListItem, ListItemSeparator } from "../components/lists";
@@ -36,8 +36,8 @@ function AccountScreen({navigation}) {
     <Screen style={styles.screen}>
       <View style={styles.container}>
         <ListItem
-          title={user.name}
-          subTitle={user.email}
+          title="NAme"//{user.name}
+          subTitle="Sat"//{user.email}
           image={require("../assets/mosh.jpg")}
         />
       </View>
